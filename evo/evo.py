@@ -5,7 +5,9 @@ class Evo:
 
     def start_rental(self, driver):
 
-        if self.driver is not None:
+        if self.driver is not None:  # 변수가 none is not proceed
+            raise RuntimeError("There is already an active rental")
+        if not driver:
             raise RuntimeError("Cannot start a rental without a driver")
 
         self.driver = driver
@@ -13,8 +15,8 @@ class Evo:
 
     def drive(self, distance):
 
-        if self.driver is not None:
-            raise RuntimeError("Cannot start a rental without a driver")
+        if self.driver is None:
+            raise RuntimeError("Cannot drive without a driver")
 
         if distance < 0:
             raise AttributeError(
@@ -27,7 +29,7 @@ class Evo:
 
     def end_rental(self):
 
-        if self.driver is not None:
+        if self.driver is None:
             raise RuntimeError("Cannot end a rental without a driver")
 
         driven_distance = self.distance
